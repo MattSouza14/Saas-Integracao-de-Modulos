@@ -1,0 +1,62 @@
+<div class="login-container">
+    <div class="login-card">
+      <div class="login-header">
+        <h1>Bem-vindo de volta</h1>
+        <p>Por favor, faça login para continuar</p>
+      </div>
+  
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email" 
+            placeholder="Digite seu e-mail"
+            [class.is-invalid]="loginForm.get('email')?.invalid && loginForm.get('email')?.touched"
+          >
+          <div class="error-message" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+            <span *ngIf="loginForm.get('email')?.errors?.['required']">E-mail é obrigatório</span>
+            <span *ngIf="loginForm.get('email')?.errors?.['email']">Por favor, digite um e-mail válido</span>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <input 
+            type="password" 
+            id="password" 
+            formControlName="password" 
+            placeholder="Digite sua senha"
+            [class.is-invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched"
+          >
+          <div class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            <span *ngIf="loginForm.get('password')?.errors?.['required']">Senha é obrigatória</span>
+            <span *ngIf="loginForm.get('password')?.errors?.['minlength']">A senha deve ter pelo menos 6 caracteres</span>
+          </div>
+        </div>
+  
+        <div class="form-actions">
+          <div class="remember-me">
+            <input type="checkbox" id="remember">
+            <label for="remember">Lembrar-me</label>
+          </div>
+          <a href="#" class="forgot-password">Esqueceu a senha?</a>
+        </div>
+  
+        <button 
+          type="submit" 
+          class="login-button" 
+          [disabled]="loginForm.invalid || isSubmitting"
+        >
+          <span *ngIf="!isSubmitting">Entrar</span>
+          <span *ngIf="isSubmitting">Entrando...</span>
+        </button>
+  
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+  </div>
+  
